@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { api } from '@/lib/api';
-import { useToast } from '@/components/ui/use-toast';
+import { api } from '../lib/api';
+import { showToast } from '../lib/toast';
 import {
   Language,
   LexemeSearchRequest,
@@ -8,7 +8,7 @@ import {
   LexemeDetailRequest,
   LexemeDetailResult,
   ApiError,
-} from '@/lib/types/api';
+} from '../types/api';
 
 interface ApiState<T> {
   data: T | null;
@@ -17,7 +17,6 @@ interface ApiState<T> {
 }
 
 export const useApi = () => {
-  const { toast } = useToast();
   const [languagesState, setLanguagesState] = useState<ApiState<Language[]>>({
     data: null,
     loading: false,
@@ -47,15 +46,11 @@ export const useApi = () => {
       setLanguagesState({ data: null, loading: false, error: apiError });
       
       // Show toast notification for error
-      toast({
-        title: "Error loading languages",
-        description: apiError.message,
-        variant: "destructive",
-      });
+      showToast.error("Error loading languages", apiError.message);
       
       throw apiError;
     }
-  }, [toast]);
+  }, []);
 
   const searchLexemes = useCallback(async (request: LexemeSearchRequest) => {
     setSearchState(prev => ({ ...prev, loading: true, error: null }));
@@ -68,15 +63,11 @@ export const useApi = () => {
       setSearchState({ data: null, loading: false, error: apiError });
       
       // Show toast notification for error
-      toast({
-        title: "Error searching lexemes",
-        description: apiError.message,
-        variant: "destructive",
-      });
+      showToast.error("Error searching lexemes", apiError.message);
       
       throw apiError;
     }
-  }, [toast]);
+  }, []);
 
   const getLexemeDetails = useCallback(async (request: LexemeDetailRequest) => {
     setDetailsState(prev => ({ ...prev, loading: true, error: null }));
@@ -89,15 +80,11 @@ export const useApi = () => {
       setDetailsState({ data: null, loading: false, error: apiError });
       
       // Show toast notification for error
-      toast({
-        title: "Error loading lexeme details",
-        description: apiError.message,
-        variant: "destructive",
-      });
+      showToast.error("Error loading lexeme details", apiError.message);
       
       throw apiError;
     }
-  }, [toast]);
+  }, []);
 
   return {
     // Languages

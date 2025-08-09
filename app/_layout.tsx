@@ -2,6 +2,8 @@ import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from '../lib/toast';
 
 import '../global.css';
 
@@ -21,28 +23,31 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen 
-        name="index" 
-        options={{ 
-          headerShown: false,
-          gestureEnabled: false 
-        }} 
-      />
-      <Stack.Screen 
-        name="onboarding" 
-        options={{ 
-          headerShown: false,
-          gestureEnabled: false 
-        }} 
-      />
-      <Stack.Screen 
-        name="home" 
-        options={{ 
-          headerShown: false,
-          gestureEnabled: false 
-        }} 
-      />
-    </Stack>
+    <>
+      <Stack>
+        <Stack.Screen 
+          name="index" 
+          options={{ 
+            headerShown: false,
+            gestureEnabled: false 
+          }} 
+        />
+        <Stack.Screen 
+          name="onboarding" 
+          options={{ 
+            headerShown: false,
+            gestureEnabled: false 
+          }} 
+        />
+        <Stack.Screen 
+          name="home" 
+          options={{ 
+            headerShown: false,
+            gestureEnabled: false 
+          }} 
+        />
+      </Stack>
+      <Toast config={toastConfig} />
+    </>
   );
 }

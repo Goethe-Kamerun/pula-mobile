@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, AxiosError   } from 'axios';
 import {
   Language,
   LexemeSearchRequest,
@@ -12,15 +12,14 @@ import {
   OauthCallbackResponse,
   LexemeMissingAudioResquest,
   LexemeMissingAudioResponse,
-} from './types/api';
-import { TOKEN_KEY } from './stores/authStore';
+} from '../types/api';
 import { checkIf401Error } from './utils';
 
 class ApiClient {
   private client: AxiosInstance;
 
   constructor () {
-    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://agpb-server-v1.toolforge.org/api';
+    const baseURL = process.env.EXPO_PUBLIC_API_BASE_URL || 'https://agpb-server-v1.toolforge.org/api';
 
     this.client = axios.create({
       baseURL,
@@ -33,8 +32,8 @@ class ApiClient {
 
     // Add response interceptor for error handling
     this.client.interceptors.response.use(
-      (response) => response,
-      (error) => {
+      (response: AxiosResponse) => response,
+      (error: AxiosError) => {
         let errorMessage = 'An error occurred';
         let status = error.response?.status;
         // Handle different types of errors
