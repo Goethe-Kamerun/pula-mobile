@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Container } from '../components/Container';
+import { SelectLanguages } from '../components/SelectLanguages';
 import { showToast } from '../lib/toast';
 
 export default function HomeScreen() {
+  const [isLanguageModalVisible, setIsLanguageModalVisible] = useState(false);
+
   const handleTestToast = (type: 'success' | 'error' | 'info' | 'warning') => {
     switch (type) {
       case 'success':
@@ -19,6 +22,14 @@ export default function HomeScreen() {
         showToast.warning('Warning', 'Please be careful with this action');
         break;
     }
+  };
+
+  const handleOpenLanguageModal = () => {
+    setIsLanguageModalVisible(true);
+  };
+
+  const handleCloseLanguageModal = () => {
+    setIsLanguageModalVisible(false);
   };
 
   return (
@@ -59,8 +70,20 @@ export default function HomeScreen() {
           >
             <Text style={styles.buttonText}>Warning Toast</Text>
           </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[styles.button, styles.modalButton]} 
+            onPress={handleOpenLanguageModal}
+          >
+            <Text style={styles.buttonText}>Open Language Modal</Text>
+          </TouchableOpacity>
         </View>
       </View>
+      
+      <SelectLanguages 
+        visible={isLanguageModalVisible}
+        onClose={handleCloseLanguageModal}
+      />
     </Container>
   );
 }
@@ -123,5 +146,8 @@ const styles = StyleSheet.create({
   },
   warningButton: {
     backgroundColor: '#F59E0B',
+  },
+  modalButton: {
+    backgroundColor: '#8B5CF6',
   },
 });
