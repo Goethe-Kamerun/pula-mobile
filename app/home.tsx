@@ -5,8 +5,11 @@ import { showToast } from '../lib/toast';
 import DefaultHome from '../components/DefaultHome';
 import TranslationHome from '../components/TranslationHome';
 import { SelectLanguages } from 'components/SelectLanguages';
+import { useApiWithStore } from 'hooks/useApiWithStore';
 
 export default function HomeScreen() {
+  const { selectedSourceLanguage, selectedTargetLanguage1, selectedTargetLanguage2 } =
+    useApiWithStore();
   const handleMenuPress = () => {
     showToast.info('Menu', 'Hamburger menu pressed');
   };
@@ -27,8 +30,11 @@ export default function HomeScreen() {
             onUserPress={handleUserPress}
           />
         }>
+        {selectedSourceLanguage && selectedTargetLanguage1 && selectedTargetLanguage2 ? (
+          <TranslationHome />
+        ) : (
           <DefaultHome />
-        {/* <TranslationHome /> */}
+        )}
         <SelectLanguages />
       </Container>
     </>

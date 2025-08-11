@@ -4,7 +4,7 @@ import { Select } from './ui/Select';
 import { Button } from './ui/Button';
 import { useLanguageStore } from 'stores/languageStore';
 import { colors } from 'lib/theme';
-import { useApiWithStore } from "hooks/useApiWithStore";
+import { useApiWithStore } from 'hooks/useApiWithStore';
 
 interface SelectLanguagesProps {
   onClose?: () => void;
@@ -15,7 +15,16 @@ const { width, height } = Dimensions.get('window');
 
 export const SelectLanguages: React.FC<SelectLanguagesProps> = ({ onClose, onConfirm }) => {
   const { showSelectLanguageModal, setShowSelectLanguageModal } = useLanguageStore();
-  const { getLanguages } = useApiWithStore();
+  const {
+    getLanguages,
+    languages,
+    setSelectedSourceLanguage,
+    setSelectedTargetLanguage1,
+    setSelectedTargetLanguage2,
+    selectedSourceLanguage,
+    selectedTargetLanguage1,
+    selectedTargetLanguage2,
+  } = useApiWithStore();
   const handleClose = () => {
     setShowSelectLanguageModal(false);
     onClose?.();
@@ -29,6 +38,15 @@ export const SelectLanguages: React.FC<SelectLanguagesProps> = ({ onClose, onCon
   useEffect(() => {
     getLanguages();
   }, []);
+
+  /**
+   * Language looks like
+   * {
+   *   lang_code: "aa",
+   *   lang_label: "Afar",
+   *   lang_wd_id: "Q36279"
+   * }
+   */
 
   return (
     <Modal
@@ -48,46 +66,52 @@ export const SelectLanguages: React.FC<SelectLanguagesProps> = ({ onClose, onCon
           <View style={styles.content}>
             <Select
               label="Source Language"
+              value={selectedSourceLanguage?.lang_code}
               placeholder="Select a language"
-              data={[
-                {
-                  label: 'English',
-                  value: 'en',
-                },
-                {
-                  label: 'Spanish',
-                  value: 'es',
-                },
-              ]}
-              onSelect={() => {}}
+              data={languages.map((language) => ({
+                label: language.lang_label,
+                value: language.lang_code,
+              }))}
+              onSelect={(value, option) => {
+                console.log('Selected source language', value, option);
+                const lang = languages.find((language) => language.lang_code === value);
+                if (lang) {
+                  console.log('Setting selected source language', lang);
+                  setSelectedSourceLanguage(lang);
+                }
+              }}
             />
 
             <Select
               label="Target Language 1"
+              value={selectedTargetLanguage1?.lang_code}
               placeholder="Select a language"
-              data={[
-                {
-                  label: 'Spanish',
-                  value: 'es',
-                },
-                {
-                  label: 'French',
-                  value: 'fr',
-                },
-              ]}
-              onSelect={() => {}}
+              data={languages.map((language) => ({
+                label: language.lang_label,
+                value: language.lang_code,
+              }))}
+              onSelect={(value, option) => {
+                const lang = languages.find((language) => language.lang_code === value);
+                if (lang) {
+                  setSelectedTargetLanguage1(lang);
+                }
+              }}
             />
 
             <Select
               label="Target Language 2"
+              value={selectedTargetLanguage2?.lang_code}
               placeholder="Select a language"
-              data={[
-                {
-                  label: 'French',
-                  value: 'fr',
-                },
-              ]}
-              onSelect={() => {}}
+              data={languages.map((language) => ({
+                label: language.lang_label,
+                value: language.lang_code,
+              }))}
+              onSelect={(value, option) => {
+                const lang = languages.find((language) => language.lang_code === value);
+                if (lang) {
+                  setSelectedTargetLanguage2(lang);
+                }
+              }}
             />
           </View>
 

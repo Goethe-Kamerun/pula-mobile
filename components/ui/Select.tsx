@@ -8,6 +8,8 @@ import {
   StyleSheet,
   ViewStyle,
   TextStyle,
+  TextInput,
+  Keyboard,
 } from 'react-native';
 
 export interface SelectOption {
@@ -62,7 +64,7 @@ export const Select: React.FC<SelectProps> = ({
 
   const selectedOption = data.find(option => option.value === value);
 
-  const filteredData = searchable
+  const filteredData = searchText
     ? data.filter(option =>
         option.label.toLowerCase().includes(searchText.toLowerCase())
       )
@@ -81,8 +83,9 @@ export const Select: React.FC<SelectProps> = ({
     onClose?.();
   };
 
-  const handleSelect = (option: SelectOption) => {
+  const handleSelect = async (option: SelectOption) => {
     if (!option.disabled) {
+      await Keyboard.dismiss();
       onSelect?.(option.value, option);
       if (!multiple) {
         handleClose();
@@ -163,6 +166,17 @@ export const Select: React.FC<SelectProps> = ({
               <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
                 <Text style={styles.closeButtonText}>✕</Text>
               </TouchableOpacity>
+            </View>
+
+            <View style={styles.searchContainer}>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search..."
+                value={searchText}
+                onChangeText={setSearchText}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
             </View>
             
             <FlatList
@@ -298,6 +312,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#6B7280',
     fontWeight: 'bold',
+  },
+  searchContainer: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  searchInput: {
+    height: 40,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 16,
   },
   optionsList: {
     maxHeight: 400,
