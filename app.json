@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "my-expo-app",
-    "slug": "my-expo-app",
+    "name": "AGPB",
+    "slug": "AGPB",
     "version": "1.0.0",
-    "scheme": "my-expo-app",
+    "scheme": "AGPB",
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -26,13 +26,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.agpb"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.agpb"
     }
   }
 }
