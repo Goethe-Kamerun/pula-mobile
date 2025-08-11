@@ -7,9 +7,11 @@ import { useAppStore } from 'stores/appStore';
 export const TabButton = ({
   title,
   tabKey,
+  disabled,
 }: {
   title: string;
   tabKey: 'source' | 'target1' | 'target2';
+  disabled: boolean;
 }) => {
   const { activeTab, setActiveTab } = useAppStore();
 
@@ -20,7 +22,8 @@ export const TabButton = ({
   return (
     <TouchableOpacity
       style={[styles.tabButton, activeTab === tabKey && styles.activeTabButton]}
-      onPress={onHandlePress}>
+      onPress={onHandlePress}
+      disabled={disabled}>
       <Text style={[styles.tabButtonText, activeTab === tabKey && styles.activeTabButtonText]}>
         {title}
       </Text>

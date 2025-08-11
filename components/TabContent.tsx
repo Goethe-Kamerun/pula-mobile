@@ -1,23 +1,25 @@
 // show the details of a lexeme
 
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Image, Linking } from 'react-native';
 import { colors, fontSizes, fontWeights } from 'lib/theme';
 import { GlossWithSense, LexemeDetail } from 'types/api';
 import { useAppStore } from 'stores/appStore';
+import { AudioPlayer } from './AudioPlayer';
 
 interface LexemeDetailResultProps {
   title?: string;
   tabKey: 'source' | 'target1' | 'target2';
-  //   glossesWithSense?: GlossWithSense[];
-  //   lexemeDetail?: LexemeDetail;
+  glossesWithSense?: GlossWithSense[];
+  lexemeDetail?: LexemeDetail;
   //   onContribute?: (type: 'label' | 'audio') => void;
 }
 
 export const TabContent = ({
   title,
   tabKey,
-  //   glossesWithSense,
-  //   lexemeDetail,
+  glossesWithSense,
+  lexemeDetail,
   //   onContribute,
 }: LexemeDetailResultProps) => {
   const { activeTab } = useAppStore();
@@ -26,41 +28,68 @@ export const TabContent = ({
   return (
     <View style={styles.tabContent}>
       {/* Main Image */}
-      <View style={styles.imageContainer}>
-        <Image
-          source={{
-            uri: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Adolphe_Jourdan_A_Mother%27s_Embrace.jpg',
-          }}
-          style={styles.mainImage}
-          resizeMode="cover"
-        />
-      </View>
+      {lexemeDetail && lexemeDetail.id && (
+        <View style={styles.imageContainer}>
+          <Image
+            source={{
+              uri: lexemeDetail.image || 'https://agpb.toolforge.org/no-image.png',
+            }}
+            style={styles.mainImage}
+            resizeMode="cover"
+          />
+        </View>
+      )}
 
       {/* Lexeme Details */}
       <View style={styles.lexemeDetails}>
         {/* Top Row: ID and Category */}
-        <View style={styles.topRow}>
-          <Text style={styles.lexemeId}>L29233</Text>
-          <View style={styles.categoryContainer}>
-            <Text style={styles.categoryLabel}>Category:</Text>
-            <Text style={styles.categoryValue}>noun</Text>
+        {lexemeDetail && lexemeDetail.id && (
+          <View style={styles.topRow}>
+            <Text style={styles.lexemeId}>{lexemeDetail.id}</Text>
+            <View style={styles.categoryContainer}>
+              <Text style={styles.categoryLabel}>Category:</Text>
+              <Text
+                style={styles.categoryValue}
+                onPress={() =>
+                  Linking.openURL(`https://www.wikidata.org/wiki/${lexemeDetail.lexicalCategoryId}`)
+                }>
+                {lexemeDetail.lexicalCategoryLabel}
+              </Text>
+            </View>
           </View>
-        </View>
+        )}
 
-        <View style={styles.bottomSection}>
-          {/* Middle Section: Links */}
-          <View style={styles.linksSection}>
-            <Text style={styles.linkText}>L29233 →</Text>
-            <Text style={styles.subLinks}>(L29233-F1)</Text>
-            <Text style={styles.subLinks}>(L29233-S1)</Text>
-          </View>
+        {glossesWithSense &&
+          glossesWithSense.map((glossWithSense) => (
+            <View key={glossWithSense.senseId}>
+              <View style={styles.bottomSection}>
+                {/* Middle Section: Links */}
+                <View style={styles.linksSection}>
+                  <Text
+                    style={styles.linkText}
+                    onPress={() =>
+                      Linking.openURL(`https://www.wikidata.org/wiki/Lexeme:${lexemeDetail?.id}`)
+                    }>
+                    {lexemeDetail?.id} →
+                  </Text>
+                  <Text style={styles.subLinks}>({glossWithSense.gloss.formId})</Text>
+                  <Text style={styles.subLinks}>{glossWithSense.senseId}</Text>
+                </View>
 
-          {/* Bottom Section: Word and Language */}
-          <View style={styles.wordSection}>
-            <Text style={styles.wordText}>Mother</Text>
-            <Text style={styles.languageCode}>en</Text>
-          </View>
-        </View>
+                {/* Bottom Section: Word and Language */}
+                <View style={styles.wordSection}>
+                  <Text style={styles.wordText}>{glossWithSense.gloss.value}</Text>
+                  <Text style={styles.languageCode}>{glossWithSense.gloss.language}</Text>
+                </View>
+              </View>
+              
+              {glossWithSense.gloss.audio ? (
+                <View style={styles.audioContainer}>
+                  <AudioPlayer audioUrl={glossWithSense.gloss.audio} />
+                </View>
+              ) : null}
+            </View>
+          ))}
       </View>
     </View>
   );
@@ -153,5 +182,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 16,
+  },
+  audioContainer: {
+    marginTop: 12,
+    paddingHorizontal: 8,
   },
 });

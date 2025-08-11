@@ -73,10 +73,8 @@ export const SelectLanguages: React.FC<SelectLanguagesProps> = ({ onClose, onCon
                 value: language.lang_code,
               }))}
               onSelect={(value, option) => {
-                console.log('Selected source language', value, option);
                 const lang = languages.find((language) => language.lang_code === value);
                 if (lang) {
-                  console.log('Setting selected source language', lang);
                   setSelectedSourceLanguage(lang);
                 }
               }}
