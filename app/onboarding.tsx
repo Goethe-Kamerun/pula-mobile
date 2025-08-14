@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Onboarding from 'react-native-onboarding-swiper';
+import { colors, fontSizes, fontWeights } from '../lib/theme';
 
 export default function OnboardingScreen() {
   const handleDone = async () => {
@@ -31,55 +32,85 @@ export default function OnboardingScreen() {
       onSkip={handleSkip}
       pages={[
         {
-          backgroundColor: '#698FB8',
+          backgroundColor: colors.white,
           image: (
             <View style={{ 
               width: 200, 
               height: 200, 
-              backgroundColor: 'rgba(255,255,255,0.1)', 
+              backgroundColor: colors.primary, 
               borderRadius: 100, 
               justifyContent: 'center', 
               alignItems: 'center' 
             }}>
-              <Text style={{ fontSize: 80 }}>📱</Text>
+              <Text style={{ fontSize: 80, color: colors.white }}>📱</Text>
             </View>
           ),
           title: 'Welcome to AGPB',
-          subtitle: 'Your personal assistant for productivity and organization',
+          subtitle: 'Easiest way to translate from one language to another',
+          titleStyles: {
+            color: colors.dark,
+            fontSize: fontSizes.xxl * 1.3,
+            fontWeight: fontWeights.bold as any,
+          },
+          subTitleStyles: {
+            color: colors.primary,
+            fontSize: fontSizes.lg * 1.5,
+            fontWeight: fontWeights.normal as any,
+          },
         },
         {
-          backgroundColor: '#6CB2B8',
+          backgroundColor: colors.light,
           image: (
             <View style={{ 
               width: 200, 
               height: 200, 
-              backgroundColor: 'rgba(255,255,255,0.1)', 
+              backgroundColor: colors.primary, 
               borderRadius: 100, 
               justifyContent: 'center', 
               alignItems: 'center' 
             }}>
-              <Text style={{ fontSize: 80 }}>📋</Text>
+              <Text style={{ fontSize: 80, color: colors.white }}>📋</Text>
             </View>
           ),
-          title: 'Stay Organized',
-          subtitle: 'Keep track of your tasks, goals, and important information',
+          title: 'Multiple Languages',
+          subtitle: 'Select your languages and search for a word!',
+          titleStyles: {
+            color: colors.dark,
+            fontSize: fontSizes.xxl * 1.3,
+            fontWeight: fontWeights.bold as any,
+          },
+          subTitleStyles: {
+            color: colors.primary,
+            fontSize: fontSizes.lg * 1.5,
+            fontWeight: fontWeights.normal as any,
+          },
         },
         {
-          backgroundColor: '#9D8FBF',
+          backgroundColor: colors.lightGray,
           image: (
             <View style={{ 
               width: 200, 
               height: 200, 
-              backgroundColor: 'rgba(255,255,255,0.1)', 
+              backgroundColor: colors.primary, 
               borderRadius: 100, 
               justifyContent: 'center', 
               alignItems: 'center' 
             }}>
-              <Text style={{ fontSize: 80 }}>⚡</Text>
+              <Text style={{ fontSize: 80, color: colors.white }}>⚡</Text>
             </View>
           ),
-          title: 'Boost Productivity',
-          subtitle: 'Get more done with smart features and intuitive design',
+          title: 'Wikidata powered',
+          subtitle: 'Uses Wikidata lexemes to provide the most accurate translations',
+          titleStyles: {
+            color: colors.dark,
+            fontSize: fontSizes.xxl * 1.3,
+            fontWeight: fontWeights.bold as any,
+          },
+          subTitleStyles: {
+            color: colors.primary,
+            fontSize: fontSizes.lg * 1.5,
+            fontWeight: fontWeights.normal as any,
+          },
         },
       ]}
       showSkip={true}
@@ -88,6 +119,7 @@ export default function OnboardingScreen() {
       skipLabel="Skip"
       nextLabel="Next"
       doneLabel="Get Started"
+      bottomBarColor={colors.darkGray}
     />
   );
 }
