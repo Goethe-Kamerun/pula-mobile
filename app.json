@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "AGPB",
-    "slug": "AGPB",
+    "name": "PULA",
+    "slug": "PULA",
     "version": "1.0.0",
-    "scheme": "AGPB",
+    "scheme": "PULA",
     "web": {
       "favicon": "./assets/favicon.png"
     },
