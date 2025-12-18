@@ -1,5 +1,6 @@
+
 declare module 'react-native-onboarding-swiper' {
-  import { ComponentType } from 'react';
+  import { ComponentType, RefObject } from 'react';
   import { ViewStyle, TextStyle } from 'react-native';
 
   interface OnboardingPage {
@@ -34,10 +35,11 @@ declare module 'react-native-onboarding-swiper' {
     imageContainerStyles?: ViewStyle;
     titleStyles?: TextStyle;
     subTitleStyles?: TextStyle;
-    SkipButtonComponent?: ComponentType<any>;
-    NextButtonComponent?: ComponentType<any>;
-    DoneButtonComponent?: ComponentType<any>;
+    SkipButtonComponent?: ComponentType<{ clickEnabled?: boolean }>;
+    NextButtonComponent?: ComponentType<{ clickEnabled?: boolean }>;
+    DoneButtonComponent?: ComponentType<{ clickEnabled?: boolean }>;
     DotComponent?: ComponentType<any>;
+    ref?: RefObject<any>;
   }
 
   const Onboarding: ComponentType<OnboardingProps>;

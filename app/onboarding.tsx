@@ -9,6 +9,7 @@ import { View, Text } from 'react-native';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Onboarding from 'react-native-onboarding-swiper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fontSizes, fontWeights } from '../lib/theme';
 
 /**
@@ -50,6 +51,59 @@ export default function OnboardingScreen() {
       router.replace('/home');
     }
   };
+
+  const handleBack = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < 2) {
+      setCurrentPage(currentPage + 1);
+    } else {
+      handleDone();
+    }
+  };
+
+
+  // Custom Skip/Back Button Component
+  const SkipBackButton: React.FC<{ clickEnabled?: boolean }> = ({ clickEnabled = true }) => {
+    const isFirstPage = currentPage === 0;
+    
+    return (
+      <TouchableOpacity
+        style={styles.skipBackButton}
+        onPress={isFirstPage ? handleSkip : handleBack}
+        disabled={!clickEnabled}
+      >
+        <Text style={[styles.skipBackButtonText, !clickEnabled && styles.disabledText]}>
+          {isFirstPage ? 'Skip' : 'Back'}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  // Custom Next/Finish Button Component
+  const NextFinishButton: React.FC<{ clickEnabled?: boolean }> = ({ clickEnabled = true }) => {
+    const isLastPage = currentPage === 2;
+    
+    return (
+      <TouchableOpacity
+        style={styles.nextFinishButton}
+        onPress={handleNext}
+        disabled={!clickEnabled}
+      >
+        <Text style={[styles.nextFinishButtonText, !clickEnabled && styles.disabledText]}>
+          {isLastPage ? 'Get Started' : 'Next'}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+
+
+
 
   return (
     <Onboarding
@@ -141,13 +195,8 @@ export default function OnboardingScreen() {
           },
         },
       ]}
-      showSkip={true}
-      showNext={true}
-      showDone={true}
-      skipLabel="Skip"
-      nextLabel="Next"
-      doneLabel="Get Started"
       bottomBarColor={colors.darkGray}
-    />
+      />
+    </View>
   );
 }
