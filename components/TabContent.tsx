@@ -16,7 +16,6 @@ interface LexemeDetailResultProps {
 }
 
 export const TabContent = ({
-  title,
   tabKey,
   glossesWithSense,
   lexemeDetail,

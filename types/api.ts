@@ -73,7 +73,7 @@ export interface AddAudioTranslationRequest {
   formid: string;
   lang_label: string;
   lang_wdqid: string;
-}[]
+}
 
 export interface LoginResponse {
   redirect_string: string;

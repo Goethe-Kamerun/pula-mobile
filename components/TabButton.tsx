@@ -32,11 +32,6 @@ export const TabButton = ({
 };
 
 const styles = StyleSheet.create({
-  tabButtonContainer: {
-    flexDirection: 'row',
-    // justifyContent: 'space-between',
-    backgroundColor: colors.lightGray,
-  },
   tabButton: {
     borderTopWidth: 1,
     borderLeftWidth: 1,

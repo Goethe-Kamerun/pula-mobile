@@ -183,34 +183,6 @@ const styles = StyleSheet.create({
   content: {
     padding: 20,
   },
-  description: {
-    fontSize: 16,
-    color: '#374151',
-    marginBottom: 20,
-    lineHeight: 24,
-  },
-  languageSection: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1f2937',
-    marginBottom: 10,
-  },
-  languageText: {
-    fontSize: 16,
-    color: '#6b7280',
-    marginBottom: 8,
-    paddingLeft: 10,
-  },
-  note: {
-    fontSize: 14,
-    color: '#9ca3af',
-    fontStyle: 'italic',
-    marginTop: 20,
-    lineHeight: 20,
-  },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -218,31 +190,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#e5e7eb',
     gap: 12,
-  },
-  cancelButton: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    backgroundColor: '#f3f4f6',
-    alignItems: 'center',
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  confirmButton: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    backgroundColor: '#3b82f6',
-    alignItems: 'center',
-  },
-  confirmButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
   },
 });
