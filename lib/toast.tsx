@@ -1,4 +1,3 @@
-import React from 'react';
 import Toast, { BaseToast, ErrorToast, InfoToast, ToastConfig } from 'react-native-toast-message';
 
 /**

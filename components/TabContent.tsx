@@ -12,7 +12,6 @@ import { useAppStore } from 'stores/appStore';
 import { AudioPlayer } from './AudioPlayer';
 
 interface LexemeDetailResultProps {
-  title?: string;
   tabKey: 'source' | 'target1' | 'target2';
   glossesWithSense?: GlossWithSense[];
   lexemeDetail?: LexemeDetail;
@@ -28,7 +27,6 @@ interface LexemeDetailResultProps {
  * @returns {JSX.Element | null} The styled tab content or null if the tab is not active.
  */
 export const TabContent = ({
-  title,
   tabKey,
   glossesWithSense,
   lexemeDetail,

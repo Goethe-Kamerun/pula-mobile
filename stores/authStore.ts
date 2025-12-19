@@ -30,7 +30,6 @@ export interface AuthState {
   clearToken: () => Promise<void>;
   hydrate: () => Promise<void>;
   setUsername: (username: string) => void;
-  hydrateUsername: () => Promise<void>;
   clearUsername: () => Promise<void>;
 }
 
