@@ -10,7 +10,6 @@ export interface AuthState {
   clearToken: () => Promise<void>;
   hydrate: () => Promise<void>;
   setUsername: (username: string) => void;
-  hydrateUsername: () => Promise<void>;
   clearUsername: () => Promise<void>;
 }
 
@@ -32,11 +31,6 @@ export const useAuthStore = create<AuthState>((set: any) => ({
   },
 
   setUsername: (username: string) => set({ username }),
-
-  hydrateUsername: async () => {
-    const storedUsername = await AsyncStorage.getItem('username');
-    if (storedUsername) set({ username: storedUsername });
-  },
 
   clearUsername: async () => {
     set({ username: '' });

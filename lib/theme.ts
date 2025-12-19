@@ -40,10 +40,3 @@ export const fontFamilies = {
   serif: 'Georgia',
   mono: 'Courier',
 };
-
-export const theme = {
-  colors,
-  fontSizes,
-  fontWeights,
-  fontFamilies,
-};

@@ -8,7 +8,6 @@ import { useAppStore } from 'stores/appStore';
 import { AudioPlayer } from './AudioPlayer';
 
 interface LexemeDetailResultProps {
-  title?: string;
   tabKey: 'source' | 'target1' | 'target2';
   glossesWithSense?: GlossWithSense[];
   lexemeDetail?: LexemeDetail;
@@ -16,7 +15,6 @@ interface LexemeDetailResultProps {
 }
 
 export const TabContent = ({
-  title,
   tabKey,
   glossesWithSense,
   lexemeDetail,
