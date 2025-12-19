@@ -1,6 +1,22 @@
 import Toast, { BaseToast, ErrorToast, InfoToast, ToastConfig } from 'react-native-toast-message';
 
+/**
+ * @fileoverview Custom configuration and helper functions for displaying toasts
+ * using the 'react-native-toast-message' library. Provides custom styling
+ * for success, error, info, and warning toast types.
+ */
+
+/**
+ * @description The configuration object for the `react-native-toast-message` library.
+ * It maps toast 'types' (success, error, info, warning) to custom-styled React components.
+ */
 export const toastConfig: ToastConfig = {
+  /**
+   * @description Custom component for the 'success' toast type.
+   * Uses BaseToast with green-themed styling.
+   * @param {object} props The props passed by the Toast library.
+   * @returns {JSX.Element} The styled BaseToast component.
+   */
   success: (props) => (
     <BaseToast
       {...props}
@@ -27,6 +43,12 @@ export const toastConfig: ToastConfig = {
       }}
     />
   ),
+  /**
+   * @description Custom component for the 'error' toast type.
+   * Uses ErrorToast with red-themed styling.
+   * @param {object} props The props passed by the Toast library.
+   * @returns {JSX.Element} The styled ErrorToast component.
+   */
   error: (props) => (
     <ErrorToast
       {...props}
@@ -53,6 +75,12 @@ export const toastConfig: ToastConfig = {
       }}
     />
   ),
+  /**
+   * @description Custom component for the 'info' toast type.
+   * Uses InfoToast with blue-themed styling.
+   * @param {object} props The props passed by the Toast library.
+   * @returns {JSX.Element} The styled InfoToast component.
+   */
   info: (props) => (
     <InfoToast
       {...props}
@@ -79,6 +107,12 @@ export const toastConfig: ToastConfig = {
       }}
     />
   ),
+  /**
+   * @description Custom component for the 'warning' toast type.
+   * Uses BaseToast with yellow/orange-themed styling.
+   * @param {object} props The props passed by the Toast library.
+   * @returns {JSX.Element} The styled BaseToast component.
+   */
   warning: (props) => (
     <BaseToast
       {...props}
@@ -107,9 +141,19 @@ export const toastConfig: ToastConfig = {
   ),
 };
 
-// Helper functions for easy toast usage
+/**
+ * @description An object containing helper functions to simplify displaying toasts.
+ * These functions abstract away the internal structure of `Toast.show`.
+ */
 export const showToast = {
-  success: (title: string, message?: string, duration?: number) => {
+  /**
+   * @description Shows a success toast notification.
+   * @param {string} title The primary, bold title text (text1).
+   * @param {string} [message] The secondary, smaller message text (text2).
+   * @param {number} [duration] The time in milliseconds the toast should be visible. Defaults to 3000ms.
+   * @sideeffect Displays a transient UI overlay notification.
+   */
+  success: (title: string, message?: string, duration?: number): void => {
     Toast.show({
       type: 'success',
       text1: title,
@@ -119,7 +163,14 @@ export const showToast = {
       topOffset: 40,
     });
   },
-  error: (title: string, message?: string, duration?: number) => {
+  /**
+   * @description Shows an error toast notification.
+   * @param {string} title The primary, bold title text (text1).
+   * @param {string} [message] The secondary, smaller message text (text2).
+   * @param {number} [duration] The time in milliseconds the toast should be visible. Defaults to 4000ms.
+   * @sideeffect Displays a transient UI overlay notification.
+   */
+  error: (title: string, message?: string, duration?: number): void => {
     Toast.show({
       type: 'error',
       text1: title,
@@ -129,7 +180,14 @@ export const showToast = {
       topOffset: 40,
     });
   },
-  info: (title: string, message?: string, duration?: number) => {
+  /**
+   * @description Shows an informational toast notification.
+   * @param {string} title The primary, bold title text (text1).
+   * @param {string} [message] The secondary, smaller message text (text2).
+   * @param {number} [duration] The time in milliseconds the toast should be visible. Defaults to 3000ms.
+   * @sideeffect Displays a transient UI overlay notification.
+   */
+  info: (title: string, message?: string, duration?: number): void => {
     Toast.show({
       type: 'info',
       text1: title,
@@ -139,7 +197,14 @@ export const showToast = {
       topOffset: 40,
     });
   },
-  warning: (title: string, message?: string, duration?: number) => {
+  /**
+   * @description Shows a warning toast notification.
+   * @param {string} title The primary, bold title text (text1).
+   * @param {string} [message] The secondary, smaller message text (text2).
+   * @param {number} [duration] The time in milliseconds the toast should be visible. Defaults to 3500ms.
+   * @sideeffect Displays a transient UI overlay notification.
+   */
+  warning: (title: string, message?: string, duration?: number): void => {
     Toast.show({
       type: 'warning',
       text1: title,
